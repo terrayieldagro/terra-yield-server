@@ -5,11 +5,13 @@ import {
   UnauthorizedException,
   HttpStatus,
   HttpCode,
+  BadRequestException,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignupDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
+import { RefreshDto } from './dto/refresh.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -29,14 +31,14 @@ export class AuthController {
   }
 
   @Post('refresh')
-  refresh(@Body() body: { refreshToken: string }) {
-    const { refreshToken } = body;
-    const decoded = this.jwt.decode(body.refreshToken);
+  refresh(@Body() refresh: RefreshDto) {
+
+    const decoded = this.jwt.decode(refresh.refreshToken);
 
     if (!decoded.sub) {
       throw new UnauthorizedException('Invalid token');
     }
-    return this.authService.refresh(decoded.sub, refreshToken);
+    return this.authService.refresh(decoded.sub, refresh);
   }
 
   // @UseGuards(JwtAuthGuard)

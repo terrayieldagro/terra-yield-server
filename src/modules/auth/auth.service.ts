@@ -8,6 +8,7 @@ import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SignupDto } from './dto/signup.dto';
+import { RefreshDto } from './dto/refresh.dto';
 
 @Injectable()
 export class AuthService {
@@ -56,13 +57,13 @@ export class AuthService {
 
     const tokens = await this.signTokens(user.id, user.email);
 
-    await this.storeRefreshToken(user.id, tokens.refresh_token);
+    await this.storeRefreshToken(user.id, tokens.refreshToken);
 
-    return tokens;
+    return { ...tokens, admin: { id: user.id, email: user.email } };
   }
 
-  async refresh(userId: string, refreshToken: string) {
-    await this.verifyRefreshToken(refreshToken);
+  async refresh(userId: string, refresh: RefreshDto) {
+    await this.verifyRefreshToken(refresh.refreshToken);
 
     const user = await this.prisma.admin.findUnique({
       where: { id: userId },
@@ -72,7 +73,10 @@ export class AuthService {
       throw new UnauthorizedException('Access denied');
     }
 
-    const tokenMatch = await bcrypt.compare(refreshToken, user.refreshToken);
+    const tokenMatch = await bcrypt.compare(
+      refresh.refreshToken,
+      user.refreshToken,
+    );
 
     if (!tokenMatch) {
       throw new UnauthorizedException('Access denied');
@@ -80,7 +84,7 @@ export class AuthService {
 
     const tokens = await this.signTokens(user.id, user.email);
 
-    await this.storeRefreshToken(user.id, tokens.refresh_token);
+    await this.storeRefreshToken(user.id, tokens.refreshToken);
 
     return tokens;
   }
@@ -111,8 +115,8 @@ export class AuthService {
     ]);
 
     return {
-      access_token: accessToken,
-      refresh_token: refreshToken,
+      accessToken: accessToken,
+      refreshToken: refreshToken,
     };
   }
 
