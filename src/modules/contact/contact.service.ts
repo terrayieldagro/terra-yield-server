@@ -1,22 +1,25 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import { ContactDto } from './dto/contact.dto';
+import { Resend } from 'resend';
 
 @Injectable()
 export class ContactService {
-  private transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
+  // private transporter = nodemailer.createTransport({
+  //   service: 'gmail',
+  //   auth: {
+  //     user: process.env.EMAIL_USER,
+  //     pass: process.env.EMAIL_PASS,
+  //   },
+  // });
+
+  private resend = new Resend(process.env.RESEND_API_KEY);
 
   async sendContactEmail(dto: ContactDto) {
     try {
-      await this.transporter.sendMail({
-        from: `"${dto.fullName}" <${process.env.EMAIL_USER}>`,
-        to: process.env.EMAIL_USER,
+      await this.resend.emails.send({
+        from: 'Terra Yield <onboarding@resend.dev>',
+        to: process.env.EMAIL_USER!,
         replyTo: dto.email,
         subject: dto.subject,
         html: `
