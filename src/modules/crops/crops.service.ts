@@ -68,7 +68,7 @@ export class CropsService {
   async findAll(status: string) {
     return this.prisma.crop.findMany({
       where: status ? { status } : undefined,
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: 'asc' },
     });
   }
 
