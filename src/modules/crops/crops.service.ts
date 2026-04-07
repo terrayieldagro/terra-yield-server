@@ -7,6 +7,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCropDto } from './dto/create-crop.dto';
 import { UpdateCropDto } from './dto/update-crop.dto';
 import { v2 as cloudinary } from 'cloudinary';
+import { FindAllQueryDto } from './dto/query.dto';
 
 @Injectable()
 export class CropsService {
@@ -65,10 +66,10 @@ export class CropsService {
     }
   }
 
-  async findAll(status: string) {
+  async findAll(query: FindAllQueryDto) {
     return this.prisma.crop.findMany({
-      where: status ? { status } : undefined,
-      orderBy: { createdAt: 'asc' },
+      where: query.status ? { status: query.status } : undefined,
+      orderBy: { createdAt: query.sortBy ? query.sortBy : 'desc' },
     });
   }
 

@@ -20,14 +20,15 @@ import { CreateCropDto } from './dto/create-crop.dto';
 import { UpdateCropDto } from './dto/update-crop.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { FindAllQueryDto } from './dto/query.dto';
 
 @Controller('crops')
 export class CropsController {
   constructor(private readonly cropsService: CropsService) {}
 
   @Get()
-  findAll(@Query('status') status: string) {
-    return this.cropsService.findAll(status);
+  findAll(@Query() query: FindAllQueryDto) {
+    return this.cropsService.findAll(query);
   }
 
   @Get(':id')
