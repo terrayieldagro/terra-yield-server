@@ -21,17 +21,17 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-# Description
+## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-# Project setup
+## Project setup
 
 ```bash
 $ pnpm install
 ```
 
-# Compile and run the project
+## Compile and run the project
 
 ```bash
 # development
@@ -44,7 +44,7 @@ $ pnpm run start:dev
 $ pnpm run start:prod
 ```
 
-# Run tests
+## Run tests
 
 ```bash
 # unit tests
@@ -57,7 +57,7 @@ $ pnpm run test:e2e
 $ pnpm run test:cov
 ```
 
-# Deployment
+## Deployment
 
 When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
 
@@ -70,7 +70,7 @@ $ mau deploy
 
 With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
-# Resources
+## Resources
 
 Check out a few resources that may come in handy when working with NestJS:
 
@@ -83,16 +83,16 @@ Check out a few resources that may come in handy when working with NestJS:
 - To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
 - Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-# Support
+## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-# Stay in touch
+## Stay in touch
 
 - Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
 - Website - [https://nestjs.com](https://nestjs.com/)
 - Twitter - [@nestframework](https://twitter.com/nestframework)
 
-# License
+## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
